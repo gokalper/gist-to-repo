@@ -18,7 +18,7 @@ Syncs all files from Gist to a target directory, keeping the same filenames:
 
 ```yaml
 - name: Sync Gist to Repo
-  uses: your-username/gist-to-repo-sync@v1
+  uses: gokalper/gist-to-repo@v1
   with:
     gist_token: ${{ secrets.GIST_TOKEN }}
     gist_id: 'abc123def456'
@@ -33,7 +33,7 @@ Define exactly where each Gist file should go:
 
 ```yaml
 - name: Sync with Explicit Mapping
-  uses: your-username/gist-to-repo-sync@v1
+  uses: gokalper/gist-to-repo@v1
   with:
     gist_token: ${{ secrets.GIST_TOKEN }}
     gist_id: 'abc123def456'
@@ -52,7 +52,7 @@ Add or remove a prefix from filenames:
 
 ```yaml
 - name: Sync with Prefix Removal
-  uses: your-username/gist-to-repo-sync@v1
+  uses: gokalper/gist-to-repo@v1
   with:
     gist_token: ${{ secrets.GIST_TOKEN }}
     gist_id: 'abc123def456'
@@ -69,7 +69,7 @@ Copy all files to a specific directory:
 
 ```yaml
 - name: Sync All Files
-  uses: your-username/gist-to-repo-sync@v1
+  uses: gokalper/gist-to-repo@v1
   with:
     gist_token: ${{ secrets.GIST_TOKEN }}
     gist_id: 'abc123def456'
@@ -83,7 +83,7 @@ Don't overwrite files that already exist:
 
 ```yaml
 - name: Sync Without Overwriting
-  uses: your-username/gist-to-repo-sync@v1
+  uses: gokalper/gist-to-repo@v1
   with:
     gist_token: ${{ secrets.GIST_TOKEN }}
     gist_id: 'abc123def456'
@@ -95,7 +95,7 @@ Don't overwrite files that already exist:
 
 ```yaml
 - name: Sync with Custom Commit
-  uses: your-username/gist-to-repo-sync@v1
+  uses: gokalper/gist-to-repo@v1
   with:
     gist_token: ${{ secrets.GIST_TOKEN }}
     gist_id: 'abc123def456'
@@ -123,7 +123,7 @@ jobs:
         uses: actions/checkout@v3
         
       - name: Sync Gist to Repo
-        uses: your-username/gist-to-repo-sync@v1
+        uses: gokalper/gist-to-repo@v1
         with:
           gist_token: ${{ secrets.GIST_TOKEN }}
           gist_id: 'abc123def456'
