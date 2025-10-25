@@ -1,0 +1,51 @@
+name: 'Gist to Repo Sync'
+description: 'Sync files from a Gist into your repository. Supports flexible file mapping.'
+branding:
+  icon: 'download'
+  color: 'blue'
+inputs:
+  gist_token:
+    description: 'Personal Access Token with Gist read access'
+    required: true
+  gist_id:
+    description: 'ID of the Gist to sync from'
+    required: true
+  mapping_strategy:
+    description: 'How to map files: "same_names", "explicit", "prefix", or "all_to_directory"'
+    required: false
+    default: 'same_names'
+  file_mappings:
+    description: 'JSON object mapping gist files to repo paths: {"gist_file.txt":"repo/path/file.txt"}'
+    required: false
+    default: '{}'
+  target_path:
+    description: 'Target directory in repo (used with "all_to_directory" or "same_names" strategy)'
+    required: false
+    default: './'
+  file_prefix:
+    description: 'Prefix to add/remove from filenames (used with "prefix" strategy)'
+    required: false
+    default: ''
+  merge_strategy:
+    description: 'How to handle conflicts: "overwrite" (default), "skip_existing", "newer_only" (future)'
+    required: false
+    default: 'overwrite'
+  create_pr:
+    description: 'Create a pull request instead of direct commit (true/false) - future feature'
+    required: false
+    default: 'false'
+  commit_message:
+    description: 'Custom commit message template'
+    required: false
+    default: 'Sync from Gist {gist_id}'
+  git_user_name:
+    description: 'Git user name for commit'
+    required: false
+    default: 'github-actions[bot]'
+  git_user_email:
+    description: 'Git user email for commit'
+    required: false
+    default: 'github-actions[bot]@users.noreply.github.com'
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
