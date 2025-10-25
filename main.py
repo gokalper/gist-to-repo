@@ -158,10 +158,16 @@ class GistToRepoSync:
         # Stage modified files
         repo.index.add(modified_files)
         
-        # Check if there are actual changes
-        if not repo.is_dirty():
-            print('No changes detected, nothing to commit')
-            return False
+        # Check if there are actual changes by checking git status
+        try:
+            # Use git status instead of is_dirty() to avoid compatibility issues
+            status_output = repo.git.status('--porcelain')
+            if not status_output or not status_output.strip():
+                print('No changes detected, nothing to commit')
+                return False
+        except Exception as e:
+            # If status check fails, try to commit anyway
+            print(f'Warning: Could not check status ({e}), attempting commit anyway')
         
         # Format commit message
         commit_msg = self.commit_message.format(
@@ -171,8 +177,14 @@ class GistToRepoSync:
         )
         
         # Commit
-        repo.index.commit(commit_msg)
-        print(f'Committed changes: {commit_msg}')
+        try:
+            repo.index.commit(commit_msg)
+            print(f'Committed changes: {commit_msg}')
+        except Exception as e:
+            if 'nothing to commit' in str(e).lower():
+                print('No changes to commit')
+                return False
+            raise
         
         # Push
         origin = repo.remote('origin')

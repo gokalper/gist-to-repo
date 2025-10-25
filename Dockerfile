@@ -1,9 +1,10 @@
-FROM python:3-slim
+FROM python:3.11-slim
 ARG DEBIAN_FRONTEND="noninteractive"
 
-# Install git
+# Install git (updated version)
 RUN apt-get update \
     && apt-get install --yes git \
+    && git --version \
     && rm -rf /var/lib/apt/lists/*
 
 # Copy application files
