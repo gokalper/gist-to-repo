@@ -148,6 +148,12 @@ class GistToRepoSync:
 
     def commit_changes(self, modified_files: List[str]):
         """Commit changes to the repository"""
+        # Fix Git ownership issue in Docker container
+        try:
+            os.system(f'git config --global --add safe.directory {self.repo_root}')
+        except Exception as e:
+            print(f'Warning: Could not set safe.directory ({e})')
+        
         repo = git.Repo(self.repo_root)
         
         # Configure git user
